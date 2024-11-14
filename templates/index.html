@@ -1,0 +1,74 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project AIML</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/navbar.css') }}"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h2>Spam Detection</h2>
+      <form action="/predict" method="post">
+        <label for="email">Enter Email Text:</label>
+        <textarea id="email" name="email" rows="10" cols="50" required></textarea>
+        <button type="submit">Check Spam</button>
+      </form>
+      <h2>Retrain Model</h2>
+      <form action="/train" method="post">
+        <label for="emails">Enter New Emails (one per line):</label>
+        <textarea id="emails" name="emails" rows="10" cols="50" required></textarea>
+        <label for="labels">Enter Labels (one per line, 1 for spam, 0 for not spam):</label>
+        <textarea id="labels" name="labels" rows="10" cols="50" required></textarea>
+        <button type="submit">Retrain Model</button>
+      </form>
+    </div>
+  </body>
+
+  <script>
+    // Hamburger
+    const hamburger = document.querySelector(".hamburger");
+    const navCollapse = document.querySelector(".nav-collapse");
+    const navLinks = document.querySelectorAll(".nav-link");
+
+    hamburger.addEventListener("click", () => {
+      hamburger.classList.toggle("active");
+      navCollapse.classList.toggle("active");
+    });
+
+    // When a link is clicked, remove active from nav-collapse and hamburger
+    navLinks.forEach((link) => {
+      link.addEventListener("click", () => {
+        hamburger.querySelector("i").classList.remove("active");
+        navCollapse.classList.remove("active");
+      });
+    });
+
+    // When scrolled down, set navbar height to 0
+    var lastScrollTop = 0;
+
+    window.addEventListener("scroll", function () {
+      var nav = document.querySelector(".navbar");
+      var currentScroll =
+        window.pageYOffset || document.documentElement.scrollTop;
+
+      if (
+        currentScroll > 60 &&
+        currentScroll > lastScrollTop &&
+        !navCollapse.classList.contains("active")
+      ) {
+        nav.classList.add("hide-nav");
+      } else {
+        nav.classList.remove("hide-nav");
+      }
+
+      lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+    });
+  </script>
+</html>
