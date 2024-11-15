@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>AIML 6</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/static/css/navbar.css" />
+    <link rel="stylesheet" href="/static/css/homepage.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="overflow-y-hidden">
+    <nav class="navbar">
+      <div class="mini-logo">
+        <img src="static/css/assets/logo-aiml9.png" alt="logo" />
+      </div>
+      <div class="nav-collapse">
+        <ul class="nav-menu">
+          <a href="" class="nav-link">
+            <li>Home</li>
+          </a>
+          <a href="" class="nav-link">
+            <li>About</li>
+          </a>
+          <a href="" class="nav-link">
+            <li>Contact</li>
+          </a>
+        </ul>
+        <div class="login-container">
+          <a href="" class="register-button duration-300 ease px-3">Log In</a>
+        </div>
+      </div>
+      <div class="hamburger" id="hamburger">
+        <svg
+          class="ham ham6"
+          viewBox="0 0 100 100"
+          width="49"
+          onclick="this.classList.toggle('active')"
+        >
+          <path
+            class="line top"
+            d="m 30,33 h 40 c 13.100415,0 14.380204,31.80258 6.899646,33.421777 -24.612039,5.327373 9.016154,-52.337577 -12.75751,-30.563913 l -28.284272,28.284272"
+          />
+          <path
+            class="line middle"
+            d="m 70,50 c 0,0 -32.213436,0 -40,0 -7.786564,0 -6.428571,-4.640244 -6.428571,-8.571429 0,-5.895471 6.073743,-11.783399 12.286435,-5.570707 6.212692,6.212692 28.284272,28.284272 28.284272,28.284272"
+          />
+          <path
+            class="line bottom"
+            d="m 69.575405,67.073826 h -40 c -13.100415,0 -14.380204,-31.80258 -6.899646,-33.421777 24.612039,-5.327373 -9.016154,52.337577 12.75751,30.563913 l 28.284272,-28.284272"
+          />
+        </svg>
+      </div>
+    </nav>
+
+    <main class="py-10 px-10">
+      <div
+        class="grid grid-cols-2 mt-[2.5rem] p-5 px-7 pl-[100px] bg-black min-h-[200px] rounded-[80px]"
+      >
+        <div class="flex flex-col justify-center py-10">
+          <h1 class="poppins max-w-[600px] text-[50px] text-white">
+            Simulate <span class="font-bold text-[#59ebff]">anti-racist</span> social media
+          </h1>
+
+          <h1 class="max-w-[500px] poppins font-light text-lg text-white mt-10">
+            Experience a simulation of an anti-racist social media platform, powered by our AI. Discover how technology can help detect and prevent harmful content, creating a safer and more inclusive digital space!
+          </h1>
+
+          <div class="mt-10">
+            <button class="bg-[#59ebff] p-3 px-5 rounded-full">
+                <a href="" class="text-black poppins font-semibold">
+                    Try it now
+                </a>
+              </button>
+          </div>
+        </div>
+        <div class="flex p-5 pl-4 justify-center items-center">
+            <div>
+                <img src="/static/css/assets/ai-homepage.svg" alt="" width="500" height="500">
+            </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
