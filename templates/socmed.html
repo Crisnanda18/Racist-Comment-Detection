@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>AIML 6</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/static/css/navbar.css" />
+    <link rel="stylesheet" href="/static/css/homepage.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="flex">
+      <div class="flex flex-col w-64 h-scree text-white" id="div-socmed">
+        <div class="h-screen fixed flex flex-col justify-between" id="div-sidebar">
+          <div class="flex flex-col gap-3 p-5 justify-center">
+            <div class="pl-2 self-center">
+              <img
+                src="static/css/assets/logo-aiml9.png"
+                alt="logo"
+                class="w-[150px]"
+              />
+            </div>
+            <div class="self-center mt-5">
+              <h1 class="poppins text-black font-semibold">{{greeting}}, {{name}}</h1>
+            </div>
+            <div class="self-center">
+              <h1 class="poppins text-black font-light text-[12px]">{{email}}</h1>
+            </div>
+            <div class="mt-8 pl-3 self-start bg-black rounded-xl min-w-[200px]">
+              <a
+                class="flex cursor-pointer items-center truncate rounded-[5px] px-3 py-[0.65rem] text-[1.25rem] text-black outline-none transition duration-300 ease-linear hover:bg-slate-50 hover:text-black hover:outline-none focus:bg-slate-50 focus:text-black focus:outline-none active:bg-slate-50 active:text-black active:outline-none data-[te-sidenav-state-active]:text-black data-[te-sidenav-state-focus]:outline-none motion-reduce:transition-none dark:text-black dark:hover:bg-white/10 dark:focus:bg-white/10 dark:active:bg-white/10"
+                data-te-sidenav-link-ref
+                href=""
+              >
+                <span
+                  class="mr-6 [&>svg]:h-5 [&>svg]:w-5 [&>svg]:text-black dark:[&>svg]:text-black"
+                >
+                  <svg
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g
+                      id="SVGRepo_tracerCarrier"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></g>
+                    <g id="SVGRepo_iconCarrier">
+                      <path
+                        d="M8 9C8.55229 9 9 8.55229 9 8C9 7.44772 8.55229 7 8 7C7.44772 7 7 7.44772 7 8C7 8.55229 7.44772 9 8 9Z"
+                        fill="#ffffff"
+                      ></path>
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M16 8C16 12.4183 12.4183 16 8 16C3.58172 16 0 12.4183 0 8C0 3.58172 3.58172 0 8 0C12.4183 0 16 3.58172 16 8ZM6 6L4 11L5 12L10 10L12 5L11 4L6 6Z"
+                        fill="#ffffff"
+                      ></path>
+                    </g>
+                  </svg>
+                </span>
+                <span class="text-white">Feeds</span>
+              </a>
+            </div>
+            <div
+              class="mt-3 pl-3 rounded-xl hover:bg-[#59ebff] ease-in-out duration-300 transform hover:scale-105 transition"
+            >
+              <a
+                class="flex cursor-pointer items-center truncate rounded-[5px] px-3 py-[0.65rem] text-[1.25rem] text-black outline-none transition duration-300 ease-linear hover:bg-slate-50 hover:text-black hover:outline-none focus:bg-slate-50 focus:text-black focus:outline-none active:bg-slate-50 active:text-black active:outline-none data-[te-sidenav-state-active]:text-black data-[te-sidenav-state-focus]:outline-none motion-reduce:transition-none dark:text-black dark:hover:bg-white/10 dark:focus:bg-white/10 dark:active:bg-white/10"
+                data-te-sidenav-link-ref
+                href=""
+              >
+                <span
+                  class="mr-6 [&>svg]:h-5 [&>svg]:w-5 [&>svg]:text-black dark:[&>svg]:text-black"
+                >
+                  <svg
+                    fill="#000000"
+                    viewBox="0 0 32 32"
+                    version="1.1"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g
+                      id="SVGRepo_tracerCarrier"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></g>
+                    <g id="SVGRepo_iconCarrier">
+                      <title>upload-cloud</title>
+                      <path
+                        d="M0 16v-1.984q0-3.328 2.336-5.664t5.664-2.336q1.024 0 2.176 0.352 0.576-2.752 2.784-4.544t5.056-1.824q3.296 0 5.632 2.368t2.368 5.632q0 0.896-0.32 2.048 0.224-0.032 0.32-0.032 2.464 0 4.224 1.76t1.76 4.224v2.016q0 2.496-1.76 4.224t-4.224 1.76h-0.384q0.288-0.8 0.352-1.44 0.096-1.312-0.32-2.56t-1.408-2.208l-4-4q-1.76-1.792-4.256-1.792t-4.224 1.76l-4 4q-0.96 0.96-1.408 2.24t-0.32 2.592q0.032 0.576 0.256 1.248-2.72-0.608-4.512-2.784t-1.792-5.056zM10.016 22.208q-0.096-0.96 0.576-1.6l4-4q0.608-0.608 1.408-0.608 0.832 0 1.408 0.608l4 4q0.672 0.64 0.608 1.6-0.032 0.288-0.16 0.576-0.224 0.544-0.736 0.896t-1.12 0.32h-1.984v6.016q0 0.832-0.608 1.408t-1.408 0.576-1.408-0.576-0.576-1.408v-6.016h-2.016q-0.608 0-1.088-0.32t-0.768-0.896q-0.096-0.288-0.128-0.576z"
+                      ></path>
+                    </g>
+                  </svg>
+                </span>
+                <span class="text-black">Upload</span>
+              </a>
+            </div>
+            <div
+              class="mt-3 pl-3 rounded-xl hover:bg-[#59ebff] transition ease-in-out duration-300 transform hover:scale-105"
+            >
+              <a
+                class="flex cursor-pointer items-center truncate rounded-[5px] px-3 py-[0.65rem] text-[1.25rem] text-black outline-none transition duration-300 ease-linear hover:bg-slate-50 hover:text-black hover:outline-none focus:bg-slate-50 focus:text-black focus:outline-none active:bg-slate-50 active:text-black active:outline-none data-[te-sidenav-state-active]:text-black data-[te-sidenav-state-focus]:outline-none motion-reduce:transition-none dark:text-black dark:hover:bg-white/10 dark:focus:bg-white/10 dark:active:bg-white/10"
+                data-te-sidenav-link-ref
+                href=""
+              >
+                <span
+                  class="mr-6 [&>svg]:h-5 [&>svg]:w-5 [&>svg]:text-black dark:[&>svg]:text-black"
+                >
+                  <svg
+                    viewBox="0 0 18 18"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="#000000"
+                  >
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g
+                      id="SVGRepo_tracerCarrier"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></g>
+                    <g id="SVGRepo_iconCarrier">
+                      <path
+                        fill="#000000"
+                        d="M9 0a9 9 0 0 0-9 9 8.654 8.654 0 0 0 .05.92 9 9 0 0 0 17.9 0A8.654 8.654 0 0 0 18 9a9 9 0 0 0-9-9zm5.42 13.42c-.01 0-.06.08-.07.08a6.975 6.975 0 0 1-10.7 0c-.01 0-.06-.08-.07-.08a.512.512 0 0 1-.09-.27.522.522 0 0 1 .34-.48c.74-.25 1.45-.49 1.65-.54a.16.16 0 0 1 .03-.13.49.49 0 0 1 .43-.36l1.27-.1a2.077 2.077 0 0 0-.19-.79v-.01a2.814 2.814 0 0 0-.45-.78 3.83 3.83 0 0 1-.79-2.38A3.38 3.38 0 0 1 8.88 4h.24a3.38 3.38 0 0 1 3.1 3.58 3.83 3.83 0 0 1-.79 2.38 2.814 2.814 0 0 0-.45.78v.01a2.077 2.077 0 0 0-.19.79l1.27.1a.49.49 0 0 1 .43.36.16.16 0 0 1 .03.13c.2.05.91.29 1.65.54a.49.49 0 0 1 .25.75z"
+                      ></path>
+                    </g>
+                  </svg>
+                </span>
+                <span class="text-black">Profile</span>
+              </a>
+            </div>
+            <div class="rounded-xl p-3 mt-10">
+              <a
+                class="flex cursor-pointer items-center truncate rounded-[5px] px-3 py-[0.65rem] text-[1.25rem] text-black outline-none transition duration-300 ease-linear hover:bg-slate-50 hover:text-black hover:outline-none focus:bg-slate-50 focus:text-black focus:outline-none active:bg-slate-50 active:text-black active:outline-none data-[te-sidenav-state-active]:text-black data-[te-sidenav-state-focus]:outline-none motion-reduce:transition-none dark:text-black dark:hover:bg-white/10 dark:focus:bg-white/10 dark:active:bg-white/10"
+                data-te-sidenav-link-ref
+                href=""
+              >
+                <span
+                  class="mr-6 [&>svg]:h-5 [&>svg]:w-5 [&>svg]:text-black dark:[&>svg]:text-black"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g
+                      id="SVGRepo_tracerCarrier"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></g>
+                    <g id="SVGRepo_iconCarrier">
+                      <path
+                        d="M17.2929 14.2929C16.9024 14.6834 16.9024 15.3166 17.2929 15.7071C17.6834 16.0976 18.3166 16.0976 18.7071 15.7071L21.6201 12.7941C21.6351 12.7791 21.6497 12.7637 21.6637 12.748C21.87 12.5648 22 12.2976 22 12C22 11.7024 21.87 11.4352 21.6637 11.252C21.6497 11.2363 21.6351 11.2209 21.6201 11.2059L18.7071 8.29289C18.3166 7.90237 17.6834 7.90237 17.2929 8.29289C16.9024 8.68342 16.9024 9.31658 17.2929 9.70711L18.5858 11H13C12.4477 11 12 11.4477 12 12C12 12.5523 12.4477 13 13 13H18.5858L17.2929 14.2929Z"
+                        fill="#d41111"
+                      ></path>
+                      <path
+                        d="M5 2C3.34315 2 2 3.34315 2 5V19C2 20.6569 3.34315 22 5 22H14.5C15.8807 22 17 20.8807 17 19.5V16.7326C16.8519 16.647 16.7125 16.5409 16.5858 16.4142C15.9314 15.7598 15.8253 14.7649 16.2674 14H13C11.8954 14 11 13.1046 11 12C11 10.8954 11.8954 10 13 10H16.2674C15.8253 9.23514 15.9314 8.24015 16.5858 7.58579C16.7125 7.4591 16.8519 7.35296 17 7.26738V4.5C17 3.11929 15.8807 2 14.5 2H5Z"
+                        fill="#d41111"
+                      ></path>
+                    </g>
+                  </svg>
+                </span>
+                <span class="text-red-600 font-bold">Logout</span>
+              </a>
+            </div>
+            <div
+              class="flex self-center pr-5 transition ease-in-out duration-300 transform hover:scale-105"
+            >
+              <img
+                src="/static/css/assets/github-project.svg"
+                alt=""
+                class="w-[170px] -mt-5"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-col h-[1000px] pl-6 pr-6" id="div-feeds">
+        <div class="fixed bg-white w-full p-3">
+            <h1 class="font-bold text-3xl poppins">Feeds</h1>
+        </div>
+        <div class="mt-[100px] pl-3 pr-3">
+          <div class="p-5 flex-col bg-[#59ebff] rounded-xl">
+            <h1 class="poppins font-semibold text-[12px]">
+              Trending now
+            </h1>
+            <div class="">
+              <div class="flex mt-3">
+                <img
+                  src="/static/css/assets/ai-homepage.svg"
+                  alt=""
+                  class="w-[50px] h-[50px] rounded-full"
+                />
+                <div class="ml-3 py-2">
+                  <h1 class="poppins font-semibold text-[12px]">AIML 9 Bot</h1>
+                  <h1 class="poppins font-light text-[12px]">2 hours ago</h1>
+                </div>
+            </div>
+            <div class="ml-3 py-2">
+              <h1 class="poppins font-normal text-[14px] max-w-[1100px]">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Asperiores adipisci reprehenderit exercitationem dignissimos neque sequi obcaecati rem deleniti, itaque commodi numquam quas, ad velit ipsam molestias sed similique atque. A.</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mt-3 pl-3 pr-3">
+        <div class="p-5 flex-col bg-black text-white rounded-xl">
+          <h1 class="poppins font-semibold text-[12px]">
+            You m ight like
+          </h1>
+          <div class="">
+            <div class="flex mt-3">
+              <img
+                src="/static/css/assets/ai-homepage.svg"
+                alt=""
+                class="w-[50px] h-[50px] rounded-full"
+              />
+              <div class="ml-3 py-2">
+                <h1 class="poppins font-semibold text-[12px]">AIML 9 Bot</h1>
+                <h1 class="poppins font-light text-[12px]">2 hours ago</h1>
+              </div>
+          </div>
+          <div class="ml-3 py-2">
+            <h1 class="poppins font-normal text-[14px] max-w-[1100px]">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Asperiores adipisci reprehenderit exercitationem dignissimos neque sequi obcaecati rem deleniti, itaque commodi numquam quas, ad velit ipsam molestias sed similique atque. A.</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

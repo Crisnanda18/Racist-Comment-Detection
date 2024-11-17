@@ -1,9 +1,21 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from flask_mysqldb import MySQL
+from datetime import datetime
 import yaml
 
 app = Flask(__name__)
 app.secret_key = 'secret'
+
+
+def get_greeting():
+    now = datetime.now()
+    hour = now.hour
+    if hour < 12:
+        return "Good Morning"
+    elif hour < 18:
+        return "Good Afternoon"
+    else:
+        return "Good Evening"
 
 # Config MYSQL
 with open('db.yaml', 'r') as file:
@@ -44,12 +56,22 @@ def login():
         if resultValue > 0:
             user = cur.fetchone()
             if password == user[3]:  # Accessing the password field correctly
-                return 'SUCCESS'
+                session['name'] = user[1]
+                session['email'] = user[2]
+                return redirect(url_for('main'))
             else:
-                return 'ERROR'
+                return redirect(url_for('login'))
         else:
             return 'ERROR'
     return render_template('login.html')
+
+@app.route('/main', methods=['GET'], endpoint='main')
+def feeds():
+    if 'name' in session:
+        greeting = get_greeting()
+        return render_template('socmed.html', greeting=greeting, name=session['name'],email=session['email'])
+    else:
+        return redirect(url_for('auth'))
 
 @app.route('/migrate')
 def migrate():
@@ -81,11 +103,12 @@ def migrate():
     cur.execute(sql_comments)
     mysql.connection.commit()
     cur.close()
-    return redirect(url_for('login.html'))
+    return redirect(url_for('auth'))
 
 @app.route('/')
 def homepage():
     return render_template('index.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
