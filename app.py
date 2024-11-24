@@ -4,12 +4,19 @@ from datetime import datetime
 import yaml
 import os
 import urllib.request
+import logging
 
 
 app = Flask(__name__)
 app.secret_key = 'secret'
 upload_folder = 'static/uploads'
+try:
+    if not os.path.exists(upload_folder):
+        os.makedirs(upload_folder)
+except Exception as e:
+    app.logger.error(f"Error creating upload folder: {e}")
 app.config['UPLOAD_FOLDER'] = upload_folder
+logging.basicConfig(level=logging.DEBUG)
 
 
 def get_greeting():
@@ -109,13 +116,22 @@ def upload():
             userDetails = request.form
             caption = userDetails['caption']
             image = request.files['image']
-            image.save(os.path.join(app.config['UPLOAD_FOLDER'], image.filename))
-            cur = mysql.connection.cursor()
-            cur.execute("INSERT INTO posts(caption, image, user_id) VALUES(%s, %s, %s)", (caption, image.filename, session['id']))
-            mysql.connection.commit()
-            cur.close()
-            flash('Upload successful', 'success')
-            return redirect(url_for('main'))
+            try:
+                if image:
+                    image.save(os.path.join(app.config['UPLOAD_FOLDER'], image.filename))
+                    cur = mysql.connection.cursor()
+                    cur.execute("INSERT INTO posts(caption, image, user_id) VALUES(%s, %s, %s)", (caption, image.filename, session['id']))
+                    mysql.connection.commit()
+                    cur.close()
+                    flash('Upload successful', 'success')
+                else:
+                    flash('No image selected for uploading', 'danger')
+            except Exception as e:
+                app.logger.error(f"Error during file upload: {e}")
+                flash('Upload failed', 'danger')
+            response = redirect(url_for('main'))
+            app.logger.debug(f"Upload response status code: {response.status_code}")
+            return response
     else:
         return redirect(url_for('auth'))
 
@@ -160,6 +176,39 @@ def post(post_id):
     else:
         return redirect(url_for('auth'))
     
+
+@app.route('/main/post/<int:post_id>/comment', methods=['POST'], endpoint='comment')
+def comment(post_id):
+    if 'name' in session:
+        if request.method == 'POST':
+            userDetails = request.form
+            comment_text = userDetails.get('comment')
+            user_id = session['id']
+
+            # Log the comment details for debugging
+            app.logger.debug(f"User ID: {user_id}, Post ID: {post_id}, Comment: {comment_text}")
+
+            try:
+                if comment_text:
+                    cur = mysql.connection.cursor()
+                    cur.execute("INSERT INTO comments(comment, post_id, user_id) VALUES(%s, %s, %s)", (comment_text, post_id, user_id))
+                    mysql.connection.commit()
+                    cur.close()
+
+                    if cur.rowcount > 0:
+                        flash('Comment successful', 'success')
+                    else:
+                        flash('Comment failed', 'danger')
+                else:
+                    flash('Comment text cannot be empty', 'danger')
+            except Exception as e:
+                app.logger.error(f"Error posting comment: {e}")
+                flash('Comment failed', 'danger')
+            response = redirect(url_for('post-detail', post_id=post_id))
+            app.logger.debug(f"Comment response status code: {response.status_code}")
+            return response
+    else:
+        return redirect(url_for('auth'))
 
 
 @app.route('/migrate')

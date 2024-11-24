@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>Comments</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="/static/css/navbar.css" />
@@ -12,118 +12,169 @@
       rel="stylesheet"
     />
     <style>
-        #back-link {
-            position: relative;
-            display: inline-block;
-            transition: color 0.2s ease-in-out;
-        }
-        #back-link::before {
-            content: 'Comments';
-            transition: opacity 0.2s ease-in-out;
-        }
-        #back-link::after {
-            content: '< Back';
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            transition: opacity 0.2s ease-in-out;
-        }
-        #back-link:hover::before {
-            opacity: 0;
-        }
-        #back-link:hover::after {
-            opacity: 1;
-        }
+      #back-link {
+        position: relative;
+        display: inline-block;
+        transition: color 0.2s ease-in-out;
+      }
+      #back-link::before {
+        content: "Comments";
+        transition: opacity 0.2s ease-in-out;
+      }
+      #back-link::after {
+        content: "< Back";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        transition: opacity 0.2s ease-in-out;
+      }
+      #back-link:hover::before {
+        opacity: 0;
+      }
+      #back-link:hover::after {
+        opacity: 1;
+      }
     </style>
-</head>
-<body class="scroll-smooth">
-    <div class="flex flex-col h-[1000px] pl-6 pr-6" id="div-feeds">
-        <div class="fixed bg-white w-full p-3 pt-6">
-            <h1 class="font-bold text-3xl poppins">
-                <a href="/main" class="transition ease-in-out duration-200" id="back-link"></a>
-            </h1>
-        </div>
-
-        <div class="mt-[100px] pl-3 pr-3 text-white">
-            <div class="p-5 flex-col bg-black rounded-xl">
-                <div class="flex flex-row">
-                    <div class="bg-[#59ebff] rounded-3xl p-2">
-                        <h1 class="text-black poppins font-semibold text-[12px]">
-                            Trending now
-                        </h1>
-                    </div>
-                    <div></div>
-                </div>
-
-                <div class="">
-                    <div class="flex mt-3">
-                        <img
-                            src="/static/css/assets/ai-homepage.svg"
-                            alt=""
-                            class="w-[50px] h-[50px] rounded-full"
-                        />
-                        <div class="ml-3 py-2">
-                            <h1 class="poppins font-semibold text-[12px]">
-                                {{ post.name }}
-                            </h1>
-                            <h1 class="poppins font-light text-[12px]">
-                                {{ post.created_at }}
-                            </h1>
-                        </div>
-                    </div>
-                </div>
-                <div class="ml-3 py-2 min-w-[1100px]">
-                    <h1 class="poppins font-normal text-[14px] max-w-[1100px]">
-                        {{ post.caption }}
-                    </h1>
-                </div>
-                <div class="flex flex-row ml-3">
-                    <div>
-                        <img
-                            src="{{ url_for('static', filename='uploads/' ~ post.image) }}"
-                            alt=""
-                            class="mt-3 w-[250px] h-[180px] object-cover rounded-xl"
-                        />
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="comments-div flex flex-col ml-3 mt-4">
-            <h1 class="font-bold text-xl poppins text-black">Comments</h1>
-
-            {# Inputs #}
-            <div class="flex flex-row mt-4">
-                <div>
-                    {# Profile Picture #}
-                    <img
-                        src="/static/css/assets/ai-homepage.svg"
-                        alt=""
-                        class="w-[50px] h-[50px] rounded-full"
-                    />
-                </div>
-                <div>
-                    {# Comment Input #}
-                    <input
-                        type="text"
-                        class="w-[1090px] h-[50px] rounded-xl p-3 ml-2 border border-gray-300 focus:outline-none focus:ring-gray-300"
-                        placeholder="Let the sender know your thoughts..."
-                    />
-                </div>
-            </div>
-            <div class="flex self-end">
-                <button
-                    class="bg-[#59ebff] p-3 px-5 rounded-2xl mr-3 mt-3 self-end"
-                >
-                    <a href="" class="text-black poppins font-semibold">
-                        Comment
-                    </a>
-                </button>
-            </div>
-        </div>
+  </head>
+  {% with messages = get_flashed_messages(with_categories=true) %} {% if
+  messages %}
+  <div class="fixed top-10 right-4 z-50">
+    {% for category, message in messages %}
+    <div
+      class="p-4 mb-4 text-sm font-semibold poppins text-{{ 'green-700' if category == 'success' else 'red-700' }} bg-{{ 'green-100' if category == 'success' else 'red-100' }} rounded-lg shadow-lg"
+      role="alert"
+    >
+      {{ message }}
     </div>
-</body>
+    {% endfor %}
+  </div>
+  {% endif %} {% endwith %}
+  <body class="scroll-smooth">
+    <div class="flex flex-col h-[1000px] pl-6 pr-6" id="div-feeds">
+      <div class="fixed bg-white w-full p-3 pt-6">
+        <h1 class="font-bold text-3xl poppins">
+          <a
+            href="/main"
+            class="transition ease-in-out duration-200"
+            id="back-link"
+          ></a>
+        </h1>
+      </div>
+
+      <div class="mt-[100px] pl-3 pr-3 text-white">
+        <div class="p-5 flex-col bg-black rounded-xl">
+          <div class="flex flex-row">
+            <div class="bg-[#59ebff] rounded-3xl p-2">
+              <h1 class="text-black poppins font-semibold text-[12px]">
+                Trending now
+              </h1>
+            </div>
+            <div></div>
+          </div>
+
+          <div class="">
+            <div class="flex mt-3">
+              <img
+                src="/static/css/assets/ai-homepage.svg"
+                alt=""
+                class="w-[50px] h-[50px] rounded-full"
+              />
+              <div class="ml-3 py-2">
+                <h1 class="poppins font-semibold text-[12px]">
+                  {{ post.name }}
+                </h1>
+                <h1 class="poppins font-light text-[12px]">
+                  {{ post.created_at }}
+                </h1>
+              </div>
+            </div>
+          </div>
+          <div class="ml-3 py-2 min-w-[1100px]">
+            <h1 class="poppins font-normal text-[14px] max-w-[1100px]">
+              {{ post.caption }}
+            </h1>
+          </div>
+          <div class="flex flex-row ml-3">
+            <div>
+              <img
+                src="{{ url_for('static', filename='uploads/' ~ post.image) }}"
+                alt=""
+                class="mt-3 w-[250px] h-[180px] object-cover rounded-xl"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="comments-div flex w-full flex-col ml-3 mt-4">
+        <h1 class="font-bold text-xl poppins text-black">Comments</h1>
+
+        {# Inputs #}
+        <form action="{{ url_for('comment',post_id=post.id) }}" method="POST">
+          <div class="flex flex-row mt-4">
+            <div>
+              {# Profile Picture #}
+              <img
+                src="/static/css/assets/ai-homepage.svg"
+                alt=""
+                class="w-[50px] h-[50px] rounded-full"
+              />
+            </div>
+            <div class="items-center">
+              {# Comment Input #}
+              <input
+                type="text"
+                name="comment"
+                class="!w-[1200px] h-[50px] rounded-xl p-3 ml-2 border border-gray-300 focus:outline-none focus:ring-gray-300"
+                placeholder="Let the sender know your thoughts..."
+              />
+            </div>
+            <div class="self-end ml-3">
+              <button
+                class="bg-[#59ebff] p-3 px-5 rounded-2xl self-end poppins text-semibold"
+                type="submit"
+              >
+              Comment
+              </button>
+            </div>
+          </div>
+        </form>
+
+        {# Comments #}
+        <div class="mt-[40px]">
+          {% for comment in comments %}
+          <div class="flex flex-col">
+            <div class="flex flex-row items-center gap-3">
+              <div>
+                {# Profile Picture #}
+                <img
+                  src="/static/css/assets/ai-homepage.svg"
+                  alt=""
+                  class="w-[50px] h-[50px] rounded-full"
+                />
+              </div>
+              <div>
+                <h1 class="poppins font-semibold">{{comment.name}}</h1>
+              </div>
+              <div class="items-center w-[1000px]"></div>
+              <div class="flex-row">
+                <h1 class="self-end poppins font-semibold">
+                  {{comment.created_at}}
+                </h1>
+              </div>
+            </div>
+          </div>
+          <div class="p-3">
+            <h1 class="poppins font-normal text-[14px] mt-3">
+              {{comment.comment}}
+            </h1>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
