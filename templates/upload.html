@@ -13,17 +13,6 @@
     />
   </head>
   <body class="scroll-smooth">
-    {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-    <div class="fixed top-10 right-4 z-50">
-        {% for category, message in messages %}
-        <div class="p-4 mb-4 text-sm font-semibold poppins text-{{ 'green-700' if category == 'success' else 'red-700' }} bg-{{ 'green-100' if category == 'success' else 'red-100' }} rounded-lg shadow-lg" role="alert">
-            {{ message }}
-        </div>
-        {% endfor %}
-    </div>
-    {% endif %}
-    {% endwith %}
     <div class="flex">
       <div class="flex flex-col w-64 h-scree text-white" id="div-socmed">
         <div
@@ -33,8 +22,8 @@
           <div class="flex flex-col gap-3 p-5 justify-center">
             <div class="pl-2 self-center">
               <img
-                src="static/css/assets/logo-aiml9.png"
-                alt="logo"
+                src="/static/css/assets/logo-aiml9.png"
+                alt=""
                 class="w-[150px]"
               />
             </div>
@@ -48,7 +37,9 @@
                 {{email}}
               </h1>
             </div>
-            <div class="mt-8 pl-3 self-start bg-black rounded-xl min-w-[200px]">
+            <div
+              class="mt-8 pl-3 rounded-xl hover:bg-[#59ebff] transition ease-in-out duration-300 transform hover:scale-105"
+            >
               <a
                 class="flex cursor-pointer items-center truncate rounded-[5px] px-3 py-[0.65rem] text-[1.25rem] text-black outline-none transition duration-300 ease-linear hover:bg-slate-50 hover:text-black hover:outline-none focus:bg-slate-50 focus:text-black focus:outline-none active:bg-slate-50 active:text-black active:outline-none data-[te-sidenav-state-active]:text-black data-[te-sidenav-state-focus]:outline-none motion-reduce:transition-none dark:text-black dark:hover:bg-white/10 dark:focus:bg-white/10 dark:active:bg-white/10"
                 data-te-sidenav-link-ref
@@ -71,33 +62,31 @@
                     <g id="SVGRepo_iconCarrier">
                       <path
                         d="M8 9C8.55229 9 9 8.55229 9 8C9 7.44772 8.55229 7 8 7C7.44772 7 7 7.44772 7 8C7 8.55229 7.44772 9 8 9Z"
-                        fill="#ffffff"
+                        fill="#000000"
                       ></path>
                       <path
                         fill-rule="evenodd"
                         clip-rule="evenodd"
                         d="M16 8C16 12.4183 12.4183 16 8 16C3.58172 16 0 12.4183 0 8C0 3.58172 3.58172 0 8 0C12.4183 0 16 3.58172 16 8ZM6 6L4 11L5 12L10 10L12 5L11 4L6 6Z"
-                        fill="#ffffff"
+                        fill="#000000"
                       ></path>
                     </g>
                   </svg>
                 </span>
-                <span class="text-white">Feeds</span>
+                <span class="text-black">Feeds</span>
               </a>
             </div>
-            <div
-              class="mt-3 pl-3 rounded-xl hover:bg-[#59ebff] ease-in-out duration-300 transform hover:scale-105 transition"
-            >
+            <div class="mt-3 pl-3 self-start bg-black rounded-xl min-w-[200px]">
               <a
                 class="flex cursor-pointer items-center truncate rounded-[5px] px-3 py-[0.65rem] text-[1.25rem] text-black outline-none transition duration-300 ease-linear hover:bg-slate-50 hover:text-black hover:outline-none focus:bg-slate-50 focus:text-black focus:outline-none active:bg-slate-50 active:text-black active:outline-none data-[te-sidenav-state-active]:text-black data-[te-sidenav-state-focus]:outline-none motion-reduce:transition-none dark:text-black dark:hover:bg-white/10 dark:focus:bg-white/10 dark:active:bg-white/10"
                 data-te-sidenav-link-ref
-                href="/main/upload-page"
+                href=""
               >
                 <span
                   class="mr-6 [&>svg]:h-5 [&>svg]:w-5 [&>svg]:text-black dark:[&>svg]:text-black"
                 >
                   <svg
-                    fill="#000000"
+                    fill="#ffffff"
                     viewBox="0 0 32 32"
                     version="1.1"
                     xmlns="http://www.w3.org/2000/svg"
@@ -116,7 +105,7 @@
                     </g>
                   </svg>
                 </span>
-                <span class="text-black">Upload</span>
+                <span class="text-white">Upload</span>
               </a>
             </div>
             <div
@@ -200,130 +189,78 @@
         </div>
       </div>
 
-      <div class="flex flex-col h-full pl-6 pr-6 pb-3" id="div-feeds">
+      <div class="flex flex-col h-[1000px] pl-6 pr-6" id="div-feeds">
         <div class="fixed bg-white w-full p-3 pt-6">
-          <h1 class="font-bold text-3xl poppins">Feeds</h1>
+          <h1 class="font-bold text-3xl poppins">Upload</h1>
         </div>
 
-        <div class="mt-[50px]">
-          {% for post in posts %}
-          <div class="mt-10 pl-3 pr-3 text-white">
-            <div class="p-5 flex-col bg-black rounded-xl">
-              <div class="flex flex-row">
-                <div class="bg-[#59ebff] rounded-3xl p-2">
-                  <h1 class="text-black poppins font-semibold text-[12px]">
-                    Trending now
-                  </h1>
-                </div>
-                <div></div>
-              </div>
-
-              <div class="">
-                <div class="flex mt-3">
-                  <img
-                    src="/static/css/assets/ai-homepage.svg"
-                    alt=""
-                    class="w-[50px] h-[50px] rounded-full"
-                  />
-                  <div class="ml-3 py-2">
-                    <h1 class="poppins font-semibold text-[12px]">
-                      {{ post.name }}
-                    </h1>
-                    <h1 class="poppins font-light text-[12px]">
-                      {{post.created_at}}
-                    </h1>
-                  </div>
-                </div>
-              </div>
-              <div class="ml-3 py-2 min-w-[1100px]">
-                <h1 class="poppins font-normal text-[14px] max-w-[1100px]">
-                  {{ post.caption }}
-                </h1>
-              </div>
-              <div class="flex flex-row ml-3">
-                <div>
-                  <img
-                    src="{{ url_for('static', filename='uploads/' ~ post.image) }}"
-                    alt=""
-                    class="mt-3 w-[250px] h-[180px] object-cover rounded-xl"
-                  />
-                </div>
-              </div>
-              <div class="flex flex-row ml-2 mt-2">
-                <div class="love-div max-w-[40px]">
-                  <a
-                    class="flex cursor-pointer items-center truncate rounded-[5px] px-3 py-[0.65rem]"
-                    data-te-sidenav-link-ref
-                    href=""
-                  >
-                    <span
-                      class="mr-6 [&>svg]:h-7 [&>svg]:w-7 [&>svg]:text-black dark:[&>svg]:text-black"
-                    >
-                      <svg
-                        fill="#ffffff"
-                        viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                        <g
-                          id="SVGRepo_tracerCarrier"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        ></g>
-                        <g id="SVGRepo_iconCarrier">
-                          <path
-                            d="M20.5,4.609A5.811,5.811,0,0,0,16,2.5a5.75,5.75,0,0,0-4,1.455A5.75,5.75,0,0,0,8,2.5,5.811,5.811,0,0,0,3.5,4.609c-.953,1.156-1.95,3.249-1.289,6.66,1.055,5.447,8.966,9.917,9.3,10.1a1,1,0,0,0,.974,0c.336-.187,8.247-4.657,9.3-10.1C22.45,7.858,21.453,5.765,20.5,4.609Zm-.674,6.28C19.08,14.74,13.658,18.322,12,19.34c-2.336-1.41-7.142-4.95-7.821-8.451-.513-2.646.189-4.183.869-5.007A3.819,3.819,0,0,1,8,4.5a3.493,3.493,0,0,1,3.115,1.469,1.005,1.005,0,0,0,1.76.011A3.489,3.489,0,0,1,16,4.5a3.819,3.819,0,0,1,2.959,1.382C19.637,6.706,20.339,8.243,19.826,10.889Z"
-                          ></path>
-                        </g>
-                      </svg>
-                    </span>
-                  </a>
-                </div>
-
-                <div class="comment-div">
-                  <a
-                    class="flex cursor-pointer items-center truncate rounded-[5px] px-3 py-[0.65rem] text-[1.25rem] text-black outline-none transition duration-300 ease-linear hover:bg-slate-50 hover:text-black hover:outline-none focus:bg-slate-50 focus:text-black focus:outline-none active:bg-slate-50 active:text-black active:outline-none data-[te-sidenav-state-active]:text-black data-[te-sidenav-state-focus]:outline-none motion-reduce:transition-none dark:text-black dark:hover:bg-white/10 dark:focus:bg-white/10 dark:active:bg-white/10"
-                    data-te-sidenav-link-ref
-                    href="{{url_for('post-detail', post_id=post.id)}}"
-                  >
-                    <span
-                      class="mr-6 [&>svg]:h-[24px] [&>svg]:w-[24px] mt-[2px] [&>svg]:text-black dark:[&>svg]:text-black"
-                    >
-                      <svg
-                        fill="#ffffff"
-                        viewBox="0 0 512 512"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                        <g
-                          id="SVGRepo_tracerCarrier"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        ></g>
-                        <g id="SVGRepo_iconCarrier">
-                          <path
-                            d="M448 0H64C28.7 0 0 28.7 0 64v288c0 35.3 28.7 64 64 64h96v84c0 7.1 5.8 12 12 12 2.4 0 4.9-.7 7.1-2.4L304 416h144c35.3 0 64-28.7 64-64V64c0-35.3-28.7-64-64-64zm16 352c0 8.8-7.2 16-16 16H288l-12.8 9.6L208 428v-60H64c-8.8 0-16-7.2-16-16V64c0-8.8 7.2-16 16-16h384c8.8 0 16 7.2 16 16v288z"
-                          ></path>
-                        </g>
-                      </svg>
-                    </span>
-                  </a>
-                </div>
-
-                <div class="share-div"></div>
-              </div>
-            </div>
+        <form action="{{url_for('upload')}}" method="POST" enctype="multipart/form-data">
+          <div class="mt-[100px] p-3 flex flex-col">
+            <label for="caption" class="text-xl font-semibold poppins">What is your thoughts?</label
+            >
+            <input
+              type="text" name="caption"
+              class="w-[1090px] h-[50px] rounded-xl p-3 mt-2 border border-gray-300 focus:outline-none focus:ring-gray-300"
+              placeholder="Let the world know your thoughts..."
+            />
           </div>
-          {% endfor %}
+
+          <div class="mt-[12px] p-3 flex flex-col">
+            <label for="caption" class="text-xl font-semibold poppins"
+              >Let the world see the bigger picture</label
+            >
+            <input 
+              type="file" name="image"
+              class="w-[1090px] h-[50px] rounded-xl p-3 mt-2 border border-gray-300 focus:outline-none focus:ring-gray-300"
+              placeholder="Let the world know your thoughts..."
+            />
+          </div>
+
+          <div class="caution font-normal text-black text-md">
+            <p class="poppins mt-5">
+              <span class="font-bold">Caution:</span> Our AI will scan your
+              content and determine if it is safe to be uploaded.
+            </p>
+          </div>
+          <div class="flex self-start">
+            <button
+              class="bg-[#59ebff] p-3 px-5 rounded-2xl mr-3 mt-3 self-end"
+            type="submit">
+              <a href="" class="text-black poppins font-semibold"> POST! </a>
+            </button>
+          </div>
+        </form>
+
+        <!-- Toast Notifications -->
+        <div
+          id="toast-success"
+          class="hidden fixed bottom-5 right-5 bg-green-500 text-white p-3 rounded-lg shadow-lg"
+        >
+          <p>Upload successful!</p>
         </div>
-        {% if not posts %}
-        <div class="flex items-center justify-center self-center z-[-1]">
-          <h1 a class="poppins text-black font-semibold mt-[100px] text-[20px]">
-            World is silent today...
-          </h1>
+        <div
+          id="toast-failed"
+          class="hidden fixed bottom-5 right-5 bg-red-500 text-white p-3 rounded-lg shadow-lg"
+        >
+          <p>Upload failed. Please try again.</p>
         </div>
-        {% endif %}
       </div>
     </div>
+    <script>
+      // Example JavaScript to show toast notifications
+      function showToast(isSuccess) {
+        const toastSuccess = document.getElementById("toast-success");
+        const toastFailed = document.getElementById("toast-failed");
+        if (isSuccess) {
+          toastSuccess.classList.remove("hidden");
+          setTimeout(() => toastSuccess.classList.add("hidden"), 3000);
+        } else {
+          toastFailed.classList.remove("hidden");
+          setTimeout(() => toastFailed.classList.add("hidden"), 3000);
+        }
+      }
+
+      // Example usage: showToast(true) for success, showToast(false) for failure
+    </script>
   </body>
 </html>
