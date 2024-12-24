@@ -37,3 +37,5 @@ accuracy = accuracy_score(y_test, y_pred)
 print(f"Accuracy: {accuracy * 100:.2f}%")
 print("\nClassification Report:")
 print(classification_report(y_test, y_pred))
+
+joblib.dump(best_log_reg_model, 'logreg.joblib') 

@@ -5,7 +5,18 @@ import yaml
 import os
 import urllib.request
 import logging
+import joblib  # Atau import pickle jika Anda menggunakan pickle
+from sklearn.feature_extraction.text import TfidfVectorizer
+import re
+from nltk.corpus import stopwords
+from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
+import pandas as pd
 
+# upload joblib dan kosakata
+loaded_model = joblib.load('logreg.joblib')
+tfidf_vectorizer = joblib.load('tfidf_vectorizer.joblib')
+dictionary_path = "colloquial-indonesian-lexicon.csv"
+df_dict = pd.read_csv(dictionary_path)
 
 app = Flask(__name__)
 app.secret_key = 'secret'
@@ -18,6 +29,49 @@ except Exception as e:
 app.config['UPLOAD_FOLDER'] = upload_folder
 logging.basicConfig(level=logging.DEBUG)
 
+# input preprocessing
+def preprocess_text(text):
+    # 1. Case Folding
+    text = text.lower()
+
+    # 2. Cleaning (Remove punctuation, numbers, etc.)
+    text = re.sub(r"[^a-zA-Z\s]", "", text)
+
+    # 3. Normalisasi (mengganti slang)
+    slang_dict = pd.Series(df_dict['formal'].values, index=df_dict['slang']).to_dict()
+    slang_tambahan ={
+        'knp' : 'kenapa',
+        'lu' : 'kamu',
+        'lu??':'kamu',
+        'lo': 'kamu',
+        'kayak':'seperti',
+        'sdm' : 'sumber daya manusia',
+        'javva' : 'jawa',
+        'j4w4' : 'jawa',
+        'c1n4' : 'cina',
+        'cino' : 'cina',
+        'jawir': 'jawa',
+        'bisa' : 'dapat',
+        'bodo' : 'bodoh',
+        'wana' : 'jawa',
+    }
+    slang_dict.update(slang_tambahan)
+    text = " ".join([slang_dict.get(word, word) for word in text.split()])
+
+    # 4. Tokenization (split)
+    tokens = text.split()  # Ganti word_tokenize dengan split()
+
+    # 5. Stop Word Removal
+    stop_words = set(stopwords.words('indonesian'))
+    tokens = [word for word in tokens if word not in stop_words]
+
+    # 6. Stemming
+    factory = StemmerFactory()
+    stemmer = factory.create_stemmer()
+    tokens = [stemmer.stem(word) for word in tokens]
+
+    # Gabungkan token kembali menjadi string
+    return " ".join(tokens)
 
 def get_greeting():
     now = datetime.now()
@@ -116,19 +170,40 @@ def upload():
             userDetails = request.form
             caption = userDetails['caption']
             image = request.files['image']
+            
+            # AI detect
+            input_text = caption
+            processed_text = preprocess_text(input_text)
+            
             try:
-                if image:
-                    image.save(os.path.join(app.config['UPLOAD_FOLDER'], image.filename))
-                    cur = mysql.connection.cursor()
-                    cur.execute("INSERT INTO posts(caption, image, user_id) VALUES(%s, %s, %s)", (caption, image.filename, session['id']))
-                    mysql.connection.commit()
-                    cur.close()
-                    flash('Upload successful', 'success')
-                else:
-                    flash('No image selected for uploading', 'danger')
+                text_vector = tfidf_vectorizer.transform([processed_text])  # Transformasi teks menggunakan tfidf_vectorizer
             except Exception as e:
-                app.logger.error(f"Error during file upload: {e}")
-                flash('Upload failed', 'danger')
+                print("Terjadi kesalahan saat transformasi:", e)
+            
+            # Prediksi
+            try:
+                prediction = loaded_model.predict(text_vector)[0]
+                if prediction == 0:              
+                    # Check if image is provided
+                    if image:
+                        try:
+                            image.save(os.path.join(app.config['UPLOAD_FOLDER'], image.filename))
+                            cur = mysql.connection.cursor()
+                            cur.execute("INSERT INTO posts(caption, image, user_id) VALUES(%s, %s, %s)", (caption, image.filename, session['id']))
+                            mysql.connection.commit()
+                            cur.close()
+                            flash('Upload successful', 'success')
+                        except Exception as e:
+                            app.logger.error(f"Error during file upload: {e}")
+                            flash('Upload failed', 'danger')
+                    else:
+                        flash('No image selected for uploading', 'danger')
+                else:
+                    flash('Teks terdeteksi sebagai SARA', 'sara')
+                    return redirect(url_for('upload-page'))
+            except Exception as e:
+                print("Prediksi gagal:", e)
+            
             response = redirect(url_for('main'))
             app.logger.debug(f"Upload response status code: {response.status_code}")
             return response

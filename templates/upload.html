@@ -12,8 +12,37 @@
       rel="stylesheet"
     />
   </head>
-  <body class="scroll-smooth">
-    <div class="flex">
+  <!-- Flash messages -->
+  <div class="container mx-auto mt-4 !z-[99]">
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+    messages %} {% for category, message in messages %} {% if category == 'sara'
+    %}
+    <!-- Modal -->
+    <div
+      class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 !z-[90]"
+    >
+      <div class="bg-white p-6 rounded-lg shadow-lg">
+        <h2 class="text-xl font-bold text-red-600 mb-4">WARNING!!</h2>
+        <p class="mb-4 text-xl">Your caption contains <b class="text-red-700">SARA</b> content. Please use <b>acceptable</b> language.</p>
+        <div class="flex justify-center">
+          <button
+            class="bg-red-500 text-white px-4 py-2 rounded-full"
+            onclick="closeModal()"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+    <script>
+      function closeModal() {
+        document.querySelector(".fixed").style.display = "none";
+      }
+    </script>
+    {% endif %} {% endfor %} {% endif %} {% endwith %}
+  </div>
+  <body class="scroll-smooth overflow-hidden">
+    <div class="flex -mt-4">
       <div class="flex flex-col w-64 h-scree text-white" id="div-socmed">
         <div
           class="h-screen fixed flex flex-col justify-between"
@@ -190,16 +219,22 @@
       </div>
 
       <div class="flex flex-col h-[1000px] pl-6 pr-6" id="div-feeds">
-        <div class="fixed bg-white w-full p-3 pt-6">
+        <div class="bg-white w-full p-3 pt-6">
           <h1 class="font-bold text-3xl poppins">Upload</h1>
         </div>
 
-        <form action="{{url_for('upload')}}" method="POST" enctype="multipart/form-data">
+        <form
+          action="{{url_for('upload')}}"
+          method="POST"
+          enctype="multipart/form-data"
+        >
           <div class="mt-[100px] p-3 flex flex-col">
-            <label for="caption" class="text-xl font-semibold poppins">What is your thoughts?</label
+            <label for="caption" class="text-xl font-semibold poppins"
+              >What is your thoughts?</label
             >
             <input
-              type="text" name="caption"
+              type="text"
+              name="caption"
               class="w-[1090px] h-[50px] rounded-xl p-3 mt-2 border border-gray-300 focus:outline-none focus:ring-gray-300"
               placeholder="Let the world know your thoughts..."
             />
@@ -209,8 +244,9 @@
             <label for="caption" class="text-xl font-semibold poppins"
               >Let the world see the bigger picture</label
             >
-            <input 
-              type="file" name="image"
+            <input
+              type="file"
+              name="image"
               class="w-[1090px] h-[50px] rounded-xl p-3 mt-2 border border-gray-300 focus:outline-none focus:ring-gray-300"
               placeholder="Let the world know your thoughts..."
             />
@@ -225,7 +261,8 @@
           <div class="flex self-start">
             <button
               class="bg-[#59ebff] p-3 px-5 rounded-2xl mr-3 mt-3 self-end text-black poppins font-semibold"
-            type="submit">
+              type="submit"
+            >
               POST!
             </button>
           </div>
