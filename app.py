@@ -125,6 +125,7 @@ def login():
                 session['id'] = user[0]
                 session['name'] = user[1]
                 session['email'] = user[2]
+                session['status'] = user[4]
                 return redirect(url_for('main'))
             else:
                 return redirect(url_for('login'))
@@ -250,7 +251,14 @@ def post(post_id):
         return render_template('comments.html', greeting=greeting, name=session['name'], email=session['email'], post=post_data, comments=comments_data)
     else:
         return redirect(url_for('auth'))
-    
+
+@app.route('/about-us', methods=['GET'], endpoint='about')
+def admin():
+    if 'name' in session:
+        if session['status'] == 1:
+            return render_template('admin.html')
+        else:
+            return redirect(url_for('main'))
 
 @app.route('/main/post/<int:post_id>/comment', methods=['POST'], endpoint='comment')
 def comment(post_id):
@@ -262,35 +270,42 @@ def comment(post_id):
 
             # Log the comment details for debugging
             app.logger.debug(f"User ID: {user_id}, Post ID: {post_id}, Comment: {comment_text}")
-
+            
+            # AI detect
+            input_text = comment_text
+            processed_text = preprocess_text(input_text)
+            
             try:
-                if comment_text:
+                text_vector = tfidf_vectorizer.transform([processed_text])  # Transformasi teks menggunakan tfidf_vectorizer
+            except Exception as e:
+                print("Terjadi kesalahan saat transformasi:", e)
+    
+            # Prediksi
+            try:
+                prediction = loaded_model.predict(text_vector)[0]
+                if prediction == 0:
                     cur = mysql.connection.cursor()
                     cur.execute("INSERT INTO comments(comment, post_id, user_id) VALUES(%s, %s, %s)", (comment_text, post_id, user_id))
                     mysql.connection.commit()
                     cur.close()
-
-                    if cur.rowcount > 0:
-                        flash('Comment successful', 'success')
-                    else:
-                        flash('Comment failed', 'danger')
+                    flash('Comment successful', 'success')
                 else:
-                    flash('Comment text cannot be empty', 'danger')
+                    flash('Your comment contains SARA. Please use social media wisely', 'danger')
+                    return redirect(url_for('post-detail', post_id=post_id))
             except Exception as e:
-                app.logger.error(f"Error posting comment: {e}")
-                flash('Comment failed', 'danger')
-            response = redirect(url_for('post-detail', post_id=post_id))
-            app.logger.debug(f"Comment response status code: {response.status_code}")
-            return response
+                print("Prediksi gagal:", e)
     else:
         return redirect(url_for('auth'))
+    
+    response = redirect(url_for('post-detail', post_id=post_id))
+    return response
 
 
 @app.route('/migrate')
 def migrate():
     cur = mysql.connection.cursor()
     sql_db = "CREATE DATABASE IF NOT EXISTS sara"
-    sql_user = "CREATE TABLE IF NOT EXISTS users (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255), email VARCHAR(255), password VARCHAR(255))"
+    sql_user = "CREATE TABLE IF NOT EXISTS users (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255), email VARCHAR(255), password VARCHAR(255), status INT DEFAULT 0)"
     sql_posts = """
     CREATE TABLE IF NOT EXISTS posts (
         id INT AUTO_INCREMENT PRIMARY KEY,
