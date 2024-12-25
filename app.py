@@ -13,8 +13,8 @@ from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
 import pandas as pd
 
 # upload joblib dan kosakata
-loaded_model = joblib.load('logreg.joblib')
-tfidf_vectorizer = joblib.load('tfidf_vectorizer.joblib')
+loaded_model = joblib.load('logreg.joblib') #kalau lstm sdh jadi pakai joblibnya lstm
+tfidf_vectorizer = joblib.load('tfidf_vectorizer.joblib') #kalau lstm sdh jadi tf idf gausah
 dictionary_path = "colloquial-indonesian-lexicon.csv"
 df_dict = pd.read_csv(dictionary_path)
 
@@ -177,7 +177,7 @@ def upload():
             processed_text = preprocess_text(input_text)
             
             try:
-                text_vector = tfidf_vectorizer.transform([processed_text])  # Transformasi teks menggunakan tfidf_vectorizer
+                text_vector = tfidf_vectorizer.transform([processed_text])  # Transformasi teks menggunakan tfidf_vectorizer, kalau lstm jadi ini gausa
             except Exception as e:
                 print("Terjadi kesalahan saat transformasi:", e)
             
