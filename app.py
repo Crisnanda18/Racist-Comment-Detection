@@ -81,7 +81,7 @@ def migrate():
     cur.execute(sql_comments)
     mysql.connection.commit()
     cur.close()
-    return redirect(url_for('login.html'))
+    return render_template('index.html')
 
 @app.route('/')
 def homepage():
